@@ -1,19 +1,25 @@
-#include "buffer_ring.h"
-
-//#define __USE_MINGW_ANSI_STDIO 1
 #include <stdio.h>
+
+#include "buffer_ring.h"
 
 int main(int argc, char *argv[])
 {
-	declare_bring(int, x);
+	declare_bring(x, int);
 	init_bring(x);
 
-	puts("Hola adasd\n\r");
+	push_bring(x, int, 2);
+	push_bring(x, int, 3);
+	push_bring(x, int, 4);
+	push_bring(x, int, 5);
+	push_bring(x, int, 6);
+	push_bring(x, int, 7);
 
-/*
-	foreach(int, x){
-		printf("Valor %d\n", i_);
-	}*/
+	int r = pull_bring(x, int);
+	printf("Valor sacado %d\n", r);
+	
+	foreach(x, int, i){
+		printf("Valor %d\n", i);
+	}
 
 	return 0;
 }

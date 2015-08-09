@@ -4,9 +4,13 @@
 #include "stdint.h"
 #include "string.h"
 
+/*
+	first, last are never negative => first/last < _BR_BUFFER_SIZE its not a problem
+*/
+
 #define _BR_BUFFER_SIZE 100
 
-#define declare_bring(vtype, name) \
+#define declare_bring(name, vtype) \
 	typedef struct						\
 	{									\
 		vtype buffer[_BR_BUFFER_SIZE];	\
@@ -21,29 +25,25 @@
 		name.first = 0;														\
 		name.last  = 0;														\
 		name.size  = 0;														\
-		memset((void*)&name.buffer, 0, sizeof(name.buffer)*_BR_BUFFER_SIZE);\
+		memset((void*)&name.buffer, 0, sizeof(*name.buffer)*_BR_BUFFER_SIZE);\
 	}
-
-#define push_bring(vtype, name, value) \
-		{																\
-			name.buffer[name.last++] = value;							\
-			name.last = (name.last < _BR_BUFFER_SIZE)? name.last: 0;	\
-			name.size++;												\
-		}
-#define pull_bring(vtype, name) \
-		(																\
-			name.buffer[name.first++],									\
-			name.first = (name.first < _BR_BUFFER_SIZE)? name.first: 0,	\
-			name.size = (name.size != 0)? name.size-1: 0				\
-		)
-/*
-#define foreach(vtype, name, it) \
-		int i_;						\
-		vtype it;					\
-		for(i_=name.first, it=name.buffer[name.first]; i_-1!=name.last; i_=(i_+1>=_BR_BUFFER_SIZE)? 0: i_+1, it=name.buffer[i_])
-*/
-#define foreach(vtype, name) \
-	int i_;					\
-	for(i_=name.first; i_-1!=name.last; i_=(i_+1>=_BR_BUFFER_SIZE)? 0: i_+1)
+	
+#define push_bring(name, vtype, value) \
+	{																\
+		name.buffer[name.last] = value;								\
+		name.last = (name.last+1 < _BR_BUFFER_SIZE)? name.last+1: 0;\
+		name.size++;												\
+	}
+#define pull_bring(name) \
+	(																\
+		int r__ = name.buffer[name.first++],						\
+		name.first = (name.first < _BR_BUFFER_SIZE)? name.first: 0,	\
+		name.size = (name.size != 0)? name.size-1: 0,				\
+		r__ \
+	)
+#define foreach(name, vtype, it) \
+	int i_;						\
+	vtype it;					\
+	for(i_=name.first, it=name.buffer[name.first]; i_!=name.last; i_=(i_+1>=_BR_BUFFER_SIZE)? 0: i_+1, it=name.buffer[i_])
 
 #endif // _buffer_ring_h
