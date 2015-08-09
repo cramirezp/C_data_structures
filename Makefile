@@ -9,7 +9,7 @@ CFLAGS = -Wall -g -std=c99 -I$(IDIR)/
 _OBJS = buffer_ring.o
 OBJS  = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
-LIBS = -mwindows
+LIBS = 
 
 
 all: bring_test
