@@ -1,7 +1,7 @@
 IDIR = headers
 SDIR = src
 ODIR = obj
-BDIR = test
+BDIR = bin
 
 CC     = gcc
 CFLAGS = -Wall -g -std=c99 -I$(IDIR)/
