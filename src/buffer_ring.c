@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	push_bring(x, int, 6);
 	push_bring(x, int, 7);
 
-	int r = pull_bring(x, int);
+	int r = pull_bring(x);
 	printf("Valor sacado %d\n", r);
 	
 	foreach(x, int, i){

@@ -34,7 +34,7 @@
 		name.last = (name.last+1 < _BR_BUFFER_SIZE)? name.last+1: 0;\
 		name.size++;												\
 	}
-#define pull_bring(name, vtype) \
+#define pull_bring(name) \
 	(name.first+1>=_BR_BUFFER_SIZE)?	\
 	(((name.first = 0) ==0)? ((name.size--)? name.buffer[_BR_BUFFER_SIZE-1]: name.buffer[_BR_BUFFER_SIZE-1]):	\
 							((name.size--)? name.buffer[_BR_BUFFER_SIZE-1]: name.buffer[_BR_BUFFER_SIZE-1]) ):	\
