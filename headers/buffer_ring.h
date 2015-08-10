@@ -34,13 +34,12 @@
 		name.last = (name.last+1 < _BR_BUFFER_SIZE)? name.last+1: 0;\
 		name.size++;												\
 	}
-#define pull_bring(name) \
-	(																\
-		int r__ = name.buffer[name.first++],						\
-		name.first = (name.first < _BR_BUFFER_SIZE)? name.first: 0,	\
-		name.size = (name.size != 0)? name.size-1: 0,				\
-		r__ \
-	)
+#define pull_bring(name, vtype) \
+	(name.first+1>=_BR_BUFFER_SIZE)?	\
+	(((name.first = 0) ==0)? ((name.size--)? name.buffer[_BR_BUFFER_SIZE-1]: name.buffer[_BR_BUFFER_SIZE-1]):	\
+							((name.size--)? name.buffer[_BR_BUFFER_SIZE-1]: name.buffer[_BR_BUFFER_SIZE-1]) ):	\
+	((name.size--)? name.buffer[name.first++]: name.buffer[name.first++])
+
 #define foreach(name, vtype, it) \
 	int i_;						\
 	vtype it;					\
