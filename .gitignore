@@ -1,5 +1,3 @@
-*.o
-*.exe
-*.exe
-bin/buffer_ring.exe
-bin/buffer_ring.exe
+bin/*
+.Makefile.swp
+obj/*
