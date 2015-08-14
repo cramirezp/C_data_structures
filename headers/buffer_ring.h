@@ -46,3 +46,4 @@
 	for(i_=name.first, it=name.buffer[name.first]; i_!=name.last; i_=(i_+1>=_BR_BUFFER_SIZE)? 0: i_+1, it=name.buffer[i_])
 
 #endif // _buffer_ring_h
+
