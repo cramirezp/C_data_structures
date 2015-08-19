@@ -19,6 +19,7 @@
  * with foreach_bring() and equals the value.
  *
  *******************************************************************/
+
 #ifndef _buffer_ring_h
 #define _buffer_ring_h
 
