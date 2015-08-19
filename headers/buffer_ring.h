@@ -1,3 +1,24 @@
+/********************************************************************
+ *
+ * FIFO queue data structure
+ *
+ * Implemeneted with a array as a buffer ring
+ *
+ * Need to call:
+ *		-declare_bring(some name, type to store) -> declares type
+ *		-init_bring(same name) -> buffer ring header and array to 0
+ * Can
+ *		-push value of vtype to the buffer ring if name at end
+ *		-pull value from name and update buffer ring's header
+ *		-loop values from first to last
+ *
+ *
+ * It's stupid to implement remove() (would require to copy from
+ * first to position or from end to position) or
+ * getNextValue/previousValue cause is the same as looping values
+ * with foreach_bring() and equals the value.
+ *
+ *******************************************************************/
 #ifndef _buffer_ring_h
 #define _buffer_ring_h
 
@@ -5,7 +26,7 @@
 #include "string.h"
 
 /*
-	first, last are never negative => first/last < _BR_BUFFER_SIZE its not a problem
+	first, last are never negative => first or last < _BR_BUFFER_SIZE its not a problem
 */
 
 #define _BR_BUFFER_SIZE 100
@@ -39,10 +60,11 @@
 							((name.size--)? name.buffer[_BR_BUFFER_SIZE-1]: name.buffer[_BR_BUFFER_SIZE-1]) ):	\
 	((name.size--)? name.buffer[name.first++]: name.buffer[name.first++])
 
-#define foreach(name, vtype, it) 									\
+#define foreach_bring(name, vtype, it) 								\
 	int i_;															\
 	vtype it;														\
 	for(i_=name.first, it=name.buffer[name.first]; i_!=name.last; i_=(i_+1>=_BR_BUFFER_SIZE)? 0: i_+1, it=name.buffer[i_])
+
 
 #endif // _buffer_ring_h
 
