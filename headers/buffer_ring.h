@@ -19,7 +19,6 @@
 	}_bf_t;															\
 	_bf_t name
 
-
 #define init_bring(name) 											\
 	{																\
 		name.first = 0;												\
