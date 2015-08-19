@@ -2,22 +2,21 @@
 
 #include "buffer_ring.h"
 
+#undef _BR_BUFFER_SIZE
+#define _BR_BUFFER_SIZE 10000000
+
 int main(int argc, char *argv[])
 {
 	declare_bring(x, int);
 	init_bring(x);
 
-	push_bring(x, int, 2);
-	push_bring(x, int, 3);
-	push_bring(x, int, 4);
-	push_bring(x, int, 5);
-	push_bring(x, int, 6);
-	push_bring(x, int, 7);
+	for(int i=0; i<_BR_BUFFER_SIZE; i++)
+		push_bring(x, int, i);
 
 	int r = pull_bring(x);
 	printf("Valor sacado %d\n", r);
 	
-	foreach(x, int, i){
+	foreach_bring(x, int, i){
 		printf("Valor %d\n", i);
 	}
 
