@@ -21,11 +21,11 @@ $(ODIR)/%.o:  $(SDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 
-clean: clean_obj clean_exe
+clean: clean_obj clean_bin
 
 clean_obj:
 	rm -f $(ODIR)/*.o
 
-clean_exe:
+clean_bin:
 	rm -f $(BDIR)/*
 
