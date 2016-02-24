@@ -30,16 +30,16 @@
 	first, last are never negative => first or last < _BR_BUFFER_SIZE its not a problem
 */
 
+typedef struct													\
+{																\
+	vtype buffer[_BR_BUFFER_SIZE];								\
+	uint16_t first, last;										\
+	uint8_t	size;												\
+}_bf_t;	
+
 #define _BR_BUFFER_SIZE 100
 
-#define declare_bring(name, vtype) 									\
-	typedef struct													\
-	{																\
-		vtype buffer[_BR_BUFFER_SIZE];								\
-		uint16_t first, last;										\
-		uint8_t	size;												\
-	}_bf_t;															\
-	_bf_t name
+#define declare_bring(name, vtype) 	_bf_t name
 
 #define init_bring(name) 											\
 	{																\
